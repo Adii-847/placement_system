@@ -1,0 +1,14 @@
+<div class="topbar">
+  <div>
+    <span class="topbar-title"><%= typeof title !== 'undefined' ? title : '' %></span>
+    <span class="topbar-subtitle"><%= typeof subtitle !== 'undefined' ? '— ' + subtitle : '' %></span>
+  </div>
+  <div class="topbar-right">
+    <div class="search-bar">
+      <%- include('icon', { name: 'search', size: 14 }) %>
+      <input placeholder="Search…" />
+    </div>
+    <div class="icon-btn"><%- include('icon', { name: 'bell', size: 16 }) %></div>
+    <div class="avatar sm"><%= role === 'student' ? 'AS' : 'RC' %></div>
+  </div>
+</div>

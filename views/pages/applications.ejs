@@ -1,0 +1,40 @@
+<div class="fade-in">
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <% [
+      { company: "Microsoft", role: "Software Engineer", package: "₹38 LPA", status: "Online Assessment", statusColor: "var(--orange)", step: 3, emoji: "⬛" },
+      { company: "Google", role: "SDE - II", package: "₹45 LPA", status: "Under Review", statusColor: "var(--blue)", step: 2, emoji: "🔵" },
+      { company: "Flipkart", role: "SDE-1", package: "₹28 LPA", status: "Selected 🎉", statusColor: "var(--green)", step: 7, emoji: "🟡" },
+      { company: "Amazon", role: "SDE-1", package: "₹32 LPA", status: "Applied", statusColor: "var(--text-secondary)", step: 1, emoji: "🟠" },
+    ].forEach((app, idx) => { %>
+      <div class="card fade-in delay-<%= idx + 1 %>">
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <div style="font-size: 32px;"><%= app.emoji %></div>
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap;">
+              <span style="font-size: 16px; font-weight: 700; color: var(--text-primary);"><%= app.company %></span>
+              <span style="font-size: 13px; color: var(--text-secondary);">— <%= app.role %></span>
+              <span style="font-size: 14px; font-weight: 700; color: var(--indigo);"><%= app.package %></span>
+              <span class="tag" style="margin-left: auto; color: <%= app.statusColor %>; background: <%= app.statusColor %>18; border: 1px solid <%= app.statusColor %>40;"><%= app.status %></span>
+            </div>
+            <!-- Mini progress -->
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <% ["Applied", "Review", "Shortlist", "OA", "Technical", "HR", "Selected"].forEach((st, i) => { %>
+                <div style="width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; background: <%= i < app.step ? 'var(--grad-primary)' : i === app.step ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)' %>; color: <%= i < app.step ? 'white' : i === app.step ? 'var(--indigo)' : 'var(--text-muted)' %>; border: <%= i === app.step ? '2px solid var(--indigo)' : 'none' %>;">
+                  <%= i < app.step ? '✓' : i + 1 %>
+                </div>
+                <% if (i < 6) { %>
+                  <div style="flex: 1; height: 2px; background: <%= i < app.step - 1 ? 'var(--indigo)' : 'rgba(255,255,255,0.06)' %>; border-radius: 99px;"></div>
+                <% } %>
+              <% }) %>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+              <% ["Applied", "Review", "Shortlist", "OA", "Technical", "HR", "Selected"].slice(0, app.step + 1).forEach((st, i) => { %>
+                <span style="font-size: 10px; color: var(--text-muted);"><%= st %> <%= i < app.step ? '✓' : '' %></span>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>

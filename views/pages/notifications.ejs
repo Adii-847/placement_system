@@ -1,0 +1,47 @@
+<div class="fade-in">
+  <div class="tabs" id="notif-tabs">
+    <% ["All", "Placement", "Interview", "AI Insights", "Deadlines"].forEach((t, i) => { %>
+      <div class="tab <%= i === 0 ? 'active' : '' %>" data-tab="<%= t.toLowerCase().replace(' insights', '').replace('ai', 'ai') %>"><%= t %></div>
+    <% }) %>
+  </div>
+  <div class="card" style="padding: 0;">
+    <% NOTIFICATIONS.forEach(n => { %>
+      <div class="notif-item <%= !n.read ? 'unread' : '' %>" data-type="<%= n.type %>">
+        <div class="notif-dot" style="background: <%= n.color %>;"></div>
+        <div>
+          <div class="notif-title"><%= n.title %></div>
+          <div class="notif-body"><%= n.body %></div>
+          <div class="notif-time"><%= n.time %></div>
+        </div>
+        <% if (!n.read) { %>
+          <span class="tag tag-indigo" style="margin-left: auto; flex-shrink: 0;">New</span>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('#notif-tabs .tab');
+    const items = document.querySelectorAll('.notif-item');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active tab
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Filter items
+        const filter = tab.dataset.tab;
+        items.forEach(item => {
+          if (filter === 'all' || item.dataset.type === filter) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

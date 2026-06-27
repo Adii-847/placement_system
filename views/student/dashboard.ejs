@@ -1,0 +1,168 @@
+<!-- Hero -->
+<div class="hero fade-in">
+  <div class="hero-greeting">
+    <span style="background: var(--grad-primary); border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">✨</span>
+    Good morning, final year student
+  </div>
+  <div class="hero-name">Welcome back, Aryan Sharma 👋</div>
+  <div class="hero-sub">You have 2 new placement drives, 1 interview tomorrow, and your resume needs 2 improvements to reach 85+ ATS score.</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-val">8.6</span><span class="hero-stat-label">CGPA</span></div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat"><span class="hero-stat-val">B.Tech CSE</span><span class="hero-stat-label">Branch</span></div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat"><span class="hero-stat-val">2025</span><span class="hero-stat-label">Passout</span></div>
+    <div class="hero-divider"></div>
+    <div style="margin-left: auto;">
+      <a href="/student/drives" class="btn btn-primary" style="text-decoration:none;"><%- include('../partials/icon', { name: 'drives', size: 15 }) %> View All Drives</a>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <% [
+    { label: "Applied", value: "6", icon: "applications", change: "+2 this week", up: true, bg: "rgba(59,130,246,0.15)", color: "var(--blue)" },
+    { label: "Eligible Drives", value: "14", icon: "drives", change: "3 new drives", up: true, bg: "rgba(16,185,129,0.15)", color: "var(--green)" },
+    { label: "Interviews", value: "2", icon: "interview", change: "1 tomorrow", up: true, bg: "rgba(168,85,247,0.15)", color: "var(--purple)" },
+    { label: "Selected", value: "1", icon: "check", change: "Flipkart offer", up: true, bg: "rgba(245,158,11,0.15)", color: "var(--orange)" }
+  ].forEach((s, i) => { %>
+    <div class="stat-card fade-in delay-<%= i + 1 %>">
+      <div class="stat-icon" style="background: <%= s.bg %>; color: <%= s.color %>;">
+        <%- include('../partials/icon', { name: s.icon, size: 20 }) %>
+      </div>
+      <div class="stat-value" style="background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><%= s.value %></div>
+      <div class="stat-label"><%= s.label %></div>
+      <div class="stat-change <%= s.up ? 'up' : 'down' %>">&uarr; <%= s.change %></div>
+    </div>
+  <% }) %>
+</div>
+
+<div class="grid-2-1 mb-24">
+  <!-- Application tracker -->
+  <div class="card fade-in">
+    <div class="section-header">
+      <div><div class="section-title">Application Tracker</div><div class="section-sub">Microsoft SDE — Active Application</div></div>
+      <span class="tag tag-indigo">In Progress</span>
+    </div>
+    <div class="status-flow" style="margin-bottom: 20px;">
+      <% APP_STATUS.forEach((s, i) => { %>
+        <div class="status-step">
+          <div class="status-circle <%= s.status %>"><%= s.status === 'done' ? '✓' : s.status === 'active' ? '⟳' : (i + 1) %></div>
+          <span class="status-label"><%= s.label %></span>
+        </div>
+        <% if (i < APP_STATUS.length - 1) { %>
+          <div class="status-line <%= s.status === 'done' ? 'done' : '' %>"></div>
+        <% } %>
+      <% }) %>
+    </div>
+    <div style="padding: 14px 16px; background: rgba(99,102,241,0.08); border-radius: var(--radius-sm); border: 1px solid var(--border-accent); display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 20px;">📋</span>
+      <div>
+        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Online Assessment Due</div>
+        <div style="font-size: 12px; color: var(--text-secondary);">Complete within 48 hours · Sent to aryan@college.edu</div>
+      </div>
+      <button class="btn btn-primary btn-sm" style="margin-left: auto;">Start OA</button>
+    </div>
+  </div>
+
+  <!-- Resume score -->
+  <div class="card card-accent fade-in">
+    <div class="section-title" style="margin-bottom: 16px;">Resume Health</div>
+    <div style="display: flex; justify-content: center; margin-bottom: 16px;">
+      <!-- score ring inline because EJS does not easily share components without explicit partials if it's small, I'll write the HTML directly -->
+      <div class="score-ring" style="width: 110px; height: 110px;">
+        <svg width="110" height="110" class="circ-progress">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#3B82F6" />
+              <stop offset="50%" stopColor="#6366F1" />
+              <stop offset="100%" stopColor="#A855F7" />
+            </linearGradient>
+          </defs>
+          <circle class="circ-track" cx="55" cy="55" r="50" stroke-width="6" />
+          <circle class="circ-bar" cx="55" cy="55" r="50" stroke-width="6" stroke="url(#grad1)" stroke-dasharray="314.159" stroke-dashoffset="69.115" />
+        </svg>
+        <div class="score-center">
+          <span class="score-value" style="font-size: 20px;">78</span>
+          <span class="score-label">Score</span>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <% [
+        { label: "ATS Score", val: 78, color: "primary" },
+        { label: "Grammar", val: 92, color: "green" },
+        { label: "Keywords", val: 65, color: "orange" }
+      ].forEach(s => { %>
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+            <span style="color: var(--text-secondary); font-weight: 500;"><%= s.label %></span>
+            <span style="color: var(--text-primary); font-weight: 700;"><%= s.val %>/100</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-bar <%= s.color %>" style="width: <%= s.val %>%;"></div></div>
+        </div>
+      <% }) %>
+    </div>
+    <a href="/student/resume" class="btn btn-ghost" style="width: 100%; margin-top: 16px; justify-content: center; text-decoration: none;">View AI Report</a>
+  </div>
+</div>
+
+<div class="grid-2">
+  <!-- Eligible Drives -->
+  <div class="card fade-in delay-2">
+    <div class="section-header">
+      <div class="section-title">Eligible Drives</div>
+      <a href="/student/drives" class="see-all">See all 14 &rarr;</a>
+    </div>
+    <% COMPANIES.slice(0, 3).forEach(company => { %>
+      <div class="company-card" style="padding: 16px; margin-bottom: 12px;" onclick="window.location.href='/student/drives'">
+        <div style="display: flex; gap: 14px;">
+          <div class="company-logo" style="width: 42px; height: 42px; font-size: 20px; margin-bottom: 0;"><%= company.emoji %></div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+              <span class="company-name" style="font-size: 14px; margin: 0;"><%= company.name %></span>
+              <span class="tag tag-green" style="font-size: 10px;"><%= company.match %>% Match</span>
+            </div>
+            <div class="company-role" style="font-size: 12px; margin-bottom: 6px;"><%= company.role %> &middot; <%= company.package %></div>
+            <div style="font-size: 11px; color: var(--text-muted);">Deadline: <%= company.deadline %></div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- Timeline / Upcoming -->
+  <div class="card fade-in delay-3">
+    <div class="section-header">
+      <div class="section-title">Upcoming Schedule</div>
+      <a href="/student/interview" class="see-all">View Calendar</a>
+    </div>
+    <div style="margin-top: 20px;">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background: var(--orange);"></div>
+        <div>
+          <div class="timeline-title">Microsoft OA</div>
+          <div class="timeline-text">Complete the 90-min coding assessment on HackerRank.</div>
+          <div class="timeline-time">Today &middot; By 11:59 PM</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background: var(--blue);"></div>
+        <div>
+          <div class="timeline-title">Google Pre-Placement Talk</div>
+          <div class="timeline-text">Join the online session to understand the SDE-2 role.</div>
+          <div class="timeline-time">Tomorrow &middot; 4:00 PM</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background: var(--purple);"></div>
+        <div>
+          <div class="timeline-title">Mock Interview with Alumni</div>
+          <div class="timeline-text">System design mock interview scheduled with Rahul (Amazon).</div>
+          <div class="timeline-time">Friday &middot; 6:30 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

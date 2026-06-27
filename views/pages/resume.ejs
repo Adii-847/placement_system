@@ -1,0 +1,143 @@
+<div class="fade-in" id="resume-container">
+  
+  <!-- Upload View -->
+  <div class="card fade-in" id="upload-view" style="max-width: 600px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 28px;">
+      <div style="font-size: 28px; margin-bottom: 12px; animation: float 3s ease-in-out infinite;">🤖</div>
+      <div style="font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px;">AI Resume Analyzer</div>
+      <div style="font-size: 14px; color: var(--text-secondary);">Get an instant ATS score, keyword analysis, and personalized improvement suggestions.</div>
+    </div>
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-icon">📄</div>
+      <div style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Drop your resume here</div>
+      <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">PDF, DOCX up to 5MB</div>
+      <button class="btn btn-primary"><%- include('../partials/icon', { name: 'upload', size: 14 }) %> Choose File</button>
+    </div>
+    <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
+      <% ["ATS Score", "Grammar Check", "Keyword Gap", "Improvement Tips"].forEach(f => { %>
+        <span class="tag tag-purple"><%- include('../partials/icon', { name: 'spark', size: 10 }) %> <%= f %></span>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Analyzing View -->
+  <div class="card fade-in" id="analyzing-view" style="text-align: center; padding: 60px; display: none;">
+    <div style="font-size: 40px; margin-bottom: 20px; animation: spin 2s linear infinite; display: inline-block;">⚙️</div>
+    <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">Analyzing your resume…</div>
+    <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 28px;">Running ATS scan, grammar check, and keyword analysis</div>
+    <% ["Parsing document structure…", "Running ATS compatibility check…", "Analyzing keyword density…", "Generating improvement suggestions…"].forEach((t, i) => { %>
+      <div style="display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 10px; opacity: 0.7;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--indigo); animation: pulse 1s <%= i * 0.2 %>s infinite;"></div>
+        <span style="font-size: 13px; color: var(--text-secondary);"><%= t %></span>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- Results View -->
+  <div id="results-view" style="display: none;" class="fade-in">
+    <div class="grid-2 mb-24">
+      <div class="card fade-in">
+        <div class="section-title" style="margin-bottom: 20px;">Resume Scores</div>
+        <div style="display: flex; gap: 24px; justify-content: space-around; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <div class="score-ring" style="width: 100px; height: 100px;">
+              <svg width="100" height="100" class="circ-progress">
+                <circle class="circ-track" cx="50" cy="50" r="45" stroke-width="6" />
+                <circle class="circ-bar" cx="50" cy="50" r="45" stroke-width="6" stroke="var(--blue)" stroke-dasharray="282.7" stroke-dashoffset="62.2" />
+              </svg>
+              <div class="score-center"><span class="score-value" style="font-size: 20px;">78</span><span class="score-label">ATS</span></div>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <div class="score-ring" style="width: 100px; height: 100px;">
+              <svg width="100" height="100" class="circ-progress">
+                <circle class="circ-track" cx="50" cy="50" r="45" stroke-width="6" />
+                <circle class="circ-bar" cx="50" cy="50" r="45" stroke-width="6" stroke="var(--green)" stroke-dasharray="282.7" stroke-dashoffset="22.6" />
+              </svg>
+              <div class="score-center"><span class="score-value" style="font-size: 20px;">92</span><span class="score-label">Grammar</span></div>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <div class="score-ring" style="width: 100px; height: 100px;">
+              <svg width="100" height="100" class="circ-progress">
+                <circle class="circ-track" cx="50" cy="50" r="45" stroke-width="6" />
+                <circle class="circ-bar" cx="50" cy="50" r="45" stroke-width="6" stroke="var(--orange)" stroke-dasharray="282.7" stroke-dashoffset="98.9" />
+              </svg>
+              <div class="score-center"><span class="score-value" style="font-size: 20px;">65</span><span class="score-label">Keywords</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div style="font-size: 13px; color: var(--text-secondary); text-align: center;">
+          Overall Strength: <span style="color: var(--orange); font-weight: 700;">Above Average</span> &mdash; Add 3 more keywords to reach 90+
+        </div>
+      </div>
+
+      <div class="card card-accent fade-in">
+        <div class="section-title" style="margin-bottom: 16px;">⚡ Quick Wins</div>
+        <% [
+          { icon: "🔑", text: "Add missing keywords: Kubernetes, CI/CD, System Design", impact: "+12 pts" },
+          { icon: "📊", text: "Quantify impact: 'Reduced API latency by 35%' vs just 'Built APIs'", impact: "+8 pts" },
+          { icon: "🔗", text: "Add GitHub and LinkedIn URLs to header", impact: "+5 pts" },
+          { icon: "📐", text: "Use bullet points consistently (some bullets have mixed styles)", impact: "+3 pts" }
+        ].forEach(q => { %>
+          <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
+            <span style="font-size: 18px; flex-shrink: 0;"><%= q.icon %></span>
+            <div style="flex: 1;"><span style="font-size: 13px; color: var(--text-primary);"><%= q.text %></span></div>
+            <span class="tag tag-green" style="flex-shrink: 0;"><%= q.impact %></span>
+          </div>
+        <% }) %>
+        <button class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 8px;">
+          <%- include('../partials/icon', { name: 'spark', size: 14 }) %> Auto-Improve with AI
+        </button>
+      </div>
+    </div>
+
+    <!-- Keywords -->
+    <div class="card fade-in mb-24">
+      <div class="section-header">
+        <div class="section-title">Keyword Analysis</div>
+        <span class="tag tag-orange">13 missing</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <div style="font-size: 12px; font-weight: 700; color: var(--green); margin-bottom: 10px;">✅ Found (12)</div>
+          <div class="skills-wrap">
+            <% ["React", "Node.js", "MongoDB", "Express", "Python", "Git", "REST APIs", "JavaScript", "SQL", "AWS", "Agile", "Machine Learning"].forEach(s => { %>
+              <span class="tag tag-green"><%= s %></span>
+            <% }) %>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 700; color: var(--red); margin-bottom: 10px;">❌ Missing (13)</div>
+          <div class="skills-wrap">
+            <% ["Kubernetes", "CI/CD", "Docker", "System Design", "Microservices", "GraphQL", "TypeScript", "Redis", "Kafka", "Terraform", "Jest", "GitHub Actions", "SOLID Principles"].forEach(s => { %>
+              <span class="tag tag-red"><%= s %></span>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropZone = document.getElementById('drop-zone');
+    const uploadView = document.getElementById('upload-view');
+    const analyzingView = document.getElementById('analyzing-view');
+    const resultsView = document.getElementById('results-view');
+
+    if (dropZone) {
+      dropZone.addEventListener('click', () => {
+        uploadView.style.display = 'none';
+        analyzingView.style.display = 'block';
+        
+        setTimeout(() => {
+          analyzingView.style.display = 'none';
+          resultsView.style.display = 'block';
+        }, 2200);
+      });
+    }
+  });
+</script>

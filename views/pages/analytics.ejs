@@ -1,0 +1,78 @@
+<div class="fade-in">
+  <div class="stats-grid mb-24">
+    <% [
+      { label: "Placement Rate", value: "82%", change: "+14% YoY", up: true, color: "var(--green)" },
+      { label: "Avg Package", value: "₹18.4L", change: "+₹2.1L YoY", up: true, color: "var(--blue)" },
+      { label: "Highest Package", value: "₹45L", change: "Google SDE-2", up: true, color: "var(--purple)" },
+      { label: "Companies Visited", value: "48", change: "+8 new this yr", up: true, color: "var(--orange)" }
+    ].forEach((s, i) => { %>
+      <div class="stat-card fade-in delay-<%= i + 1 %>">
+        <div class="stat-value" style="color: <%= s.color %>;"><%= s.value %></div>
+        <div class="stat-label"><%= s.label %></div>
+        <div class="stat-change up"><%= s.change %></div>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="grid-2 mb-24">
+    <!-- Placement funnel -->
+    <div class="card fade-in">
+      <div class="section-title" style="margin-bottom: 20px;">Placement Funnel</div>
+      <% [
+        { label: "Registered", count: 342, pct: 100, color: "var(--indigo)" },
+        { label: "Eligible", count: 298, pct: 87, color: "var(--blue)" },
+        { label: "Applied", count: 256, pct: 75, color: "var(--cyan)" },
+        { label: "Shortlisted", count: 180, pct: 53, color: "var(--purple)" },
+        { label: "Interviewed", count: 120, pct: 35, color: "var(--orange)" },
+        { label: "Selected", count: 81, pct: 24, color: "var(--green)" }
+      ].forEach(f => { %>
+        <div class="funnel-row">
+          <span class="funnel-label"><%= f.label %></span>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width: <%= f.pct %>%; background: <%= f.color %>;"></div></div>
+          <span class="funnel-count"><%= f.count %></span>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Branch wise -->
+    <div class="card fade-in">
+      <div class="section-title" style="margin-bottom: 20px;">Dept-wise Placement Rate</div>
+      <% [
+        { dept: "Computer Science", rate: 94, bar: "var(--indigo)" },
+        { dept: "Information Tech", rate: 89, bar: "var(--blue)" },
+        { dept: "Electronics", rate: 76, bar: "var(--cyan)" },
+        { dept: "Mechanical", rate: 58, bar: "var(--orange)" },
+        { dept: "Civil", rate: 42, bar: "var(--text-muted)" }
+      ].forEach(d => { %>
+        <div style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+            <span style="color: var(--text-primary); font-weight: 500;"><%= d.dept %></span>
+            <span style="color: var(--text-secondary); font-weight: 700;"><%= d.rate %>%</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-bar" style="width: <%= d.rate %>%; background: <%= d.bar %>;"></div></div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Package distribution -->
+  <div class="card fade-in">
+    <div class="section-title" style="margin-bottom: 20px;">Package Distribution (Batch 2025)</div>
+    <div style="display: flex; align-items: flex-end; gap: 16px; height: 140px; padding: 0 8px;">
+      <% [
+        { range: "3-6 LPA", count: 28, color: "var(--text-muted)" },
+        { range: "6-10 LPA", count: 45, color: "var(--blue)" },
+        { range: "10-15 LPA", count: 62, color: "var(--indigo)" },
+        { range: "15-25 LPA", count: 38, color: "var(--purple)" },
+        { range: "25-35 LPA", count: 18, color: "var(--cyan)" },
+        { range: "35+ LPA", count: 8, color: "var(--green)" }
+      ].forEach(b => { %>
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+          <span style="font-size: 11px; font-weight: 700; color: <%= b.color %>;"><%= b.count %></span>
+          <div style="width: 100%; background: <%= b.color %>; border-radius: 6px 6px 0 0; height: <%= (b.count / 62) * 110 %>px; transition: height 0.8s ease; opacity: 0.85;"></div>
+          <span style="font-size: 10px; color: var(--text-muted); text-align: center;"><%= b.range %></span>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

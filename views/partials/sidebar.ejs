@@ -1,0 +1,68 @@
+<%
+  const studentNav = [
+    { id: "dashboard", label: "Dashboard", icon: "dashboard", path: "/student/dashboard" },
+    { id: "drives", label: "Placement Drives", icon: "drives", badge: "2", path: "/student/drives" },
+    { id: "applications", label: "Applications", icon: "applications", path: "/student/applications" },
+    { id: "resume", label: "Resume", icon: "resume", path: "/student/resume" },
+    { id: "ai", label: "AI Assistant", icon: "ai", path: "/student/ai" },
+    { id: "interview", label: "Interview Prep", icon: "interview", path: "/student/interview" },
+    { id: "notifications", label: "Notifications", icon: "bell", badge: "3", badgeRed: true, path: "/student/notifications" },
+    { id: "analytics", label: "Analytics", icon: "analytics", path: "/student/analytics" },
+  ];
+
+  const coordNav = [
+    { id: "dashboard", label: "Dashboard", icon: "dashboard", path: "/coordinator/dashboard" },
+    { id: "drives", label: "Drives", icon: "drives", path: "/coordinator/drives" },
+    { id: "applications", label: "Applicants", icon: "applications", path: "/coordinator/applications" },
+    { id: "analytics", label: "Analytics", icon: "analytics", path: "/coordinator/analytics" },
+    { id: "notifications", label: "Announcements", icon: "bell", path: "/coordinator/notifications" },
+  ];
+
+  const nav = role === "coordinator" ? coordNav : studentNav;
+%>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">P</div>
+    <div>
+      <div class="logo-text">PlaceIQ</div>
+      <div class="logo-sub">Campus Placement</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 4px; margin-bottom: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 4px;">
+    <a href="/student/dashboard" class="role-btn <%= role === 'student' ? 'active' : '' %>" style="flex: 1; text-align: center;">Student</a>
+    <a href="/coordinator/dashboard" class="role-btn <%= role === 'coordinator' ? 'active' : '' %>" style="flex: 1; text-align: center;">Coordinator</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Menu</div>
+    <% nav.forEach(item => { %>
+      <a href="<%= item.path %>" class="nav-item <%= path === item.path ? 'active' : '' %>">
+        <%- include('icon', { name: item.icon, size: 16 }) %>
+        <%= item.label %>
+        <% if (item.badge) { %>
+          <span class="nav-badge <%= item.badgeRed ? 'red' : '' %>"><%= item.badge %></span>
+        <% } %>
+      </a>
+    <% }) %>
+  </div>
+
+  <div class="sidebar-bottom">
+    <a href="/" class="nav-item">
+      <%- include('icon', { name: 'arrow', size: 16, className: 'flip-h' }) %>
+      Back to Home
+    </a>
+    <div class="user-card">
+      <div class="avatar"><%= role === 'student' ? 'AS' : 'RC' %></div>
+      <div>
+        <div class="user-name"><%= role === 'student' ? 'Aryan Sharma' : 'Riya Coordinator' %></div>
+        <div class="user-role"><%= role === 'student' ? 'B.Tech CSE · 2025' : 'Placement Cell' %></div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .flip-h { transform: rotate(180deg); }
+</style>

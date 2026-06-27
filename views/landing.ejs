@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlaceIQ - Landing Page</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="landing">
+  <!-- Nav -->
+  <nav class="lp-nav">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div class="logo-icon" style="width: 36px; height: 36px;">P</div>
+      <span style="font-size: 16px; font-weight: 800; color: var(--text-primary);">PlaceIQ</span>
+    </div>
+    <div style="display: flex; gap: 24px; margin-left: 40px;">
+      <% ["Features", "For Students", "For Coordinators", "Analytics"].forEach(l => { %>
+        <span style="font-size: 13.5px; color: var(--text-secondary); cursor: pointer; transition: color 0.2s;" onmouseenter="this.style.color='var(--text-primary)'" onmouseleave="this.style.color='var(--text-secondary)'"><%= l %></span>
+      <% }) %>
+    </div>
+    <div style="margin-left: auto; display: flex; gap: 10px;">
+      <a href="/student/dashboard" class="btn btn-ghost btn-sm" style="text-decoration:none;">Sign in</a>
+      <a href="/student/dashboard" class="btn btn-primary btn-sm" style="text-decoration:none;">Get Started &rarr;</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="lp-hero">
+    <div class="lp-hero-eyebrow">
+      <%- include('partials/icon', { name: 'spark', size: 13 }) %>
+      Powered by AI &middot; Built for Modern Campuses
+    </div>
+    <h1 class="lp-h1">The smartest way to<br /><span>manage college placements</span></h1>
+    <p class="lp-sub">AI-powered placement management that automates job matching, resume analysis, eligibility checks, and interview prep &mdash; all in one beautiful platform.</p>
+    <div class="lp-cta">
+      <a href="/student/dashboard" class="btn btn-primary btn-xl" style="text-decoration:none;">Launch App Demo <%- include('partials/icon', { name: 'arrow', size: 16 }) %></a>
+      <button class="btn btn-ghost btn-xl">Watch Demo &#9654;</button>
+    </div>
+
+    <!-- Dashboard preview -->
+    <div style="margin-top: 60px; border: 1px solid var(--border); border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-surface); box-shadow: 0 40px 80px rgba(0,0,0,0.6); text-align: left;">
+      <div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+        <div style="width: 10px; height: 10px; border-radius: 50%; background: #FF5F57;"></div>
+        <div style="width: 10px; height: 10px; border-radius: 50%; background: #FEBC2E;"></div>
+        <div style="width: 10px; height: 10px; border-radius: 50%; background: #28C840;"></div>
+        <span style="font-size: 12px; color: var(--text-muted); margin-left: 8px;">placeiq.app &mdash; Student Dashboard</span>
+      </div>
+      <div style="padding: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+        <% [{ l: "Applied", v: "6", c: "var(--blue)" }, { l: "Eligible", v: "14", c: "var(--green)" }, { l: "Interviews", v: "2", c: "var(--purple)" }, { l: "Offers", v: "1", c: "var(--orange)" }].forEach(s => { %>
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px;">
+            <div style="font-size: 24px; font-weight: 900; color: <%= s.c %>;"><%= s.v %></div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;"><%= s.l %></div>
+          </div>
+        <% }) %>
+      </div>
+      <div style="padding: 0 20px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px;">
+          <div style="font-size: 13px; font-weight: 700; margin-bottom: 10px;">&#127919; AI Match Score</div>
+          <% [{n:"Google",m:92},{n:"Microsoft",m:87},{n:"Amazon",m:78}].forEach(c => { %>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 12px; color: var(--text-primary); flex: 1;"><%= c.n %></span>
+              <div style="flex: 2; height: 6px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden;">
+                <div style="width: <%= c.m %>%; height: 100%; background: var(--grad-primary); border-radius: 99px;"></div>
+              </div>
+              <span style="font-size: 11px; color: var(--text-secondary); width: 30px; text-align: right;"><%= c.m %>%</span>
+            </div>
+          <% }) %>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px;">
+          <div style="font-size: 13px; font-weight: 700; margin-bottom: 10px;">&#128202; Application Status</div>
+          <div style="font-size: 12px; color: var(--text-secondary); line-height: 2;">
+            <div>Microsoft SDE &middot; <span style="color: var(--orange);">Online Assessment</span></div>
+            <div>Google SDE-2 &middot; <span style="color: var(--blue);">Under Review</span></div>
+            <div>Flipkart SDE-1 &middot; <span style="color: var(--green);">Selected &#127881;</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="lp-stats">
+    <% [{ v: "500+", l: "Colleges" }, { v: "1.2L+", l: "Students Placed" }, { v: "82%", l: "Placement Rate" }, { v: "₹18.4L", l: "Avg Package" }].forEach(s => { %>
+      <div class="lp-stat">
+        <div class="lp-stat-val"><%= s.v %></div>
+        <div class="lp-stat-label"><%= s.l %></div>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- Features -->
+  <section class="lp-features">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div class="lp-hero-eyebrow" style="display: inline-flex; margin-bottom: 16px;">Features</div>
+      <h2 style="font-size: 40px; font-weight: 900; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 16px;">Everything your placement cell needs</h2>
+      <p style="font-size: 16px; color: var(--text-secondary);">From job matching to offer letters, PlaceIQ handles the entire placement lifecycle.</p>
+    </div>
+    <div class="lp-feat-grid">
+      <% [
+        { icon: "🤖", bg: "rgba(168,85,247,0.15)", title: "AI Resume Analyzer", desc: "Get instant ATS scores, keyword gap analysis, and one-click AI improvements. Stay ahead of every applicant tracking system." },
+        { icon: "🎯", bg: "rgba(99,102,241,0.15)", title: "Smart Job Matching", desc: "Our AI matches students to drives based on skills, CGPA, branch, and preferences. Students only see roles they're actually eligible for." },
+        { icon: "📊", bg: "rgba(59,130,246,0.15)", title: "Live Analytics", desc: "Real-time placement dashboards for coordinators and admins. Track funnel drop-offs, department performance, and hiring trends instantly." },
+        { icon: "🗓️", bg: "rgba(16,185,129,0.15)", title: "Interview Scheduler", desc: "Automated interview scheduling with calendar sync, reminders, and feedback collection — no more manual coordination chaos." },
+        { icon: "💬", bg: "rgba(245,158,11,0.15)", title: "AI Career Assistant", desc: "24/7 AI-powered chat that guides students through resume building, interview prep, and career planning with personalized advice." },
+        { icon: "🔔", bg: "rgba(239,68,68,0.15)", title: "Smart Notifications", desc: "Priority-based notifications for deadlines, drive announcements, shortlists, and AI insights — delivered in real time." }
+      ].forEach(f => { %>
+        <div class="feat-card">
+          <div class="feat-icon" style="background: <%= f.bg %>; font-size: 24px;"><%= f.icon %></div>
+          <div class="feat-title"><%= f.title %></div>
+          <div class="feat-desc"><%= f.desc %></div>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="text-align: center; padding: 80px 60px; background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.05)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <h2 style="font-size: 40px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; letter-spacing: -0.02em;">Ready to transform placements?</h2>
+    <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto;">Join 500+ colleges who've automated their placement process and increased placement rates by 40%.</p>
+    <a href="/student/dashboard" class="btn btn-primary btn-xl" style="text-decoration:none;">Launch the Demo <%- include('partials/icon', { name: 'arrow', size: 16 }) %></a>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 32px 60px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div class="logo-icon" style="width: 28px; height: 28px; font-size: 12px;">P</div>
+      <span style="font-size: 14px; font-weight: 700;">PlaceIQ</span>
+    </div>
+    <span style="font-size: 12px; color: var(--text-muted);">&copy; 2025 PlaceIQ. Built with &#10084;&#65039; for campus placement teams.</span>
+  </footer>
+</body>
+</html>

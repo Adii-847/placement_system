@@ -1,0 +1,44 @@
+<div class="fade-in">
+  <div class="card mb-20" style="background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(99,102,241,0.08)); border-color: rgba(168,85,247,0.3);">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--indigo)); display: flex; align-items: center; justify-content: center; font-size: 22px; animation: float 3s ease-in-out infinite;">🤖</div>
+      <div>
+        <div style="font-size: 16px; font-weight: 800; color: var(--text-primary);">PlaceAI Career Assistant</div>
+        <div style="font-size: 13px; color: var(--text-secondary);">Powered by advanced AI &middot; Personalized for your profile &middot; Always learning</div>
+      </div>
+      <span class="tag tag-green" style="margin-left: auto;">● Online</span>
+    </div>
+  </div>
+
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <div class="chat-messages" id="chat-messages" style="height: 380px;">
+      <% AI_CHAT_INIT.forEach(m => { %>
+        <div class="chat-msg <%= m.role %>">
+          <% if (m.role === 'ai') { %>
+            <div class="ai-avatar"><span style="font-size: 14px;">🤖</span></div>
+          <% } else { %>
+            <div class="avatar sm">AS</div>
+          <% } %>
+          <div class="chat-bubble" style="white-space: pre-wrap;"><%= m.text %></div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Suggestions -->
+    <div style="padding: 10px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; overflow-x: auto;">
+      <% ["Help me prepare for Google interview", "Analyze my resume", "Career roadmap for SDE", "Common HR questions", "System design resources"].forEach(s => { %>
+        <button class="btn btn-ghost btn-sm chat-suggestion" style="white-space: nowrap; font-size: 11px;"><%= s %></button>
+      <% }) %>
+    </div>
+
+    <div class="chat-input-row">
+      <input class="chat-input" id="chat-input" placeholder="Ask anything about your placement journey…" />
+      <button class="btn btn-primary" id="chat-send"><%- include('../partials/icon', { name: 'send', size: 15 }) %></button>
+    </div>
+  </div>
+</div>
+
+<!-- Send AI responses to client-side script -->
+<script>
+  window.AI_RESPONSES = <%- JSON.stringify(AI_RESPONSES) %>;
+</script>

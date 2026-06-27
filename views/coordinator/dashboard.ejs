@@ -1,0 +1,71 @@
+<!-- Hero -->
+<div class="hero fade-in">
+  <div class="hero-greeting">👔 Coordinator View</div>
+  <div class="hero-name">Placement Dashboard</div>
+  <div class="hero-sub">Manage drives, track students, and coordinate placements from one unified dashboard.</div>
+  <div style="display: flex; gap: 12px; margin-top: 24px;">
+    <button class="btn btn-primary"><%- include('../partials/icon', { name: 'plus', size: 15 }) %> Create Drive</button>
+    <button class="btn btn-ghost"><%- include('../partials/icon', { name: 'users', size: 15 }) %> View Students</button>
+    <button class="btn btn-ghost"><%- include('../partials/icon', { name: 'download', size: 15 }) %> Export Data</button>
+  </div>
+</div>
+
+<div class="stats-grid mb-24">
+  <% [
+    { label: "Active Drives", val: "12", icon: "drives", color: "var(--blue)", bg: "rgba(59,130,246,0.15)" },
+    { label: "Total Students", val: "342", icon: "users", color: "var(--green)", bg: "rgba(16,185,129,0.15)" },
+    { label: "Applications", val: "1,248", icon: "applications", color: "var(--purple)", bg: "rgba(168,85,247,0.15)" },
+    { label: "Selected", val: "81", icon: "star", color: "var(--orange)", bg: "rgba(245,158,11,0.15)" }
+  ].forEach((s, i) => { %>
+    <div class="stat-card fade-in delay-<%= i + 1 %>">
+      <div class="stat-icon" style="background-color: <%= s.bg %>; color: <%= s.color %>;"><%- include('../partials/icon', { name: s.icon, size: 20 }) %></div>
+      <div class="stat-value"><%= s.val %></div>
+      <div class="stat-label"><%= s.label %></div>
+    </div>
+  <% }) %>
+</div>
+
+<div class="grid-2 mb-24">
+  <!-- Recent applicants -->
+  <div class="card fade-in">
+    <div class="section-header">
+      <div class="section-title">Recent Applicants</div>
+      <button class="btn btn-ghost btn-sm"><%- include('../partials/icon', { name: 'download', size: 13 }) %> Export</button>
+    </div>
+    <% [
+      { name: "Aryan Sharma", branch: "CSE", cgpa: 8.6, company: "Google", status: "Shortlisted" },
+      { name: "Priya Patel", branch: "IT", cgpa: 9.1, company: "Microsoft", status: "Selected" },
+      { name: "Rohan Gupta", branch: "CSE", cgpa: 7.8, company: "Amazon", status: "Applied" },
+      { name: "Sneha Joshi", branch: "ECE", cgpa: 8.3, company: "Flipkart", status: "Review" },
+      { name: "Amit Kumar", branch: "CSE", cgpa: 8.0, company: "Google", status: "OA Sent" }
+    ].forEach(s => { %>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+        <div class="avatar sm"><%= s.name.split(" ").map(n => n[0]).join("") %></div>
+        <div style="flex: 1;">
+          <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);"><%= s.name %></div>
+          <div style="font-size: 11px; color: var(--text-secondary);"><%= s.branch %> &middot; CGPA: <%= s.cgpa %> &middot; Applied: <%= s.company %></div>
+        </div>
+        <% const statusClass = s.status === "Selected" ? "tag-green" : s.status === "Shortlisted" ? "tag-indigo" : s.status === "OA Sent" ? "tag-orange" : "tag-blue"; %>
+        <span class="tag <%= statusClass %>" style="font-size: 10px;"><%= s.status %></span>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- Active drives summary -->
+  <div class="card fade-in">
+    <div class="section-header"><div class="section-title">Active Drives</div><button class="btn btn-primary btn-sm"><%- include('../partials/icon', { name: 'plus', size: 12 }) %> New</button></div>
+    <% COMPANIES.slice(0, 4).forEach(c => { %>
+      <div style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);">
+        <div style="font-size: 22px;"><%= c.emoji %></div>
+        <div style="flex: 1;">
+          <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);"><%= c.name %></div>
+          <div style="font-size: 11px; color: var(--text-secondary);"><%= c.role %> &middot; Deadline: <%= c.deadline %></div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
+            <span style="color: var(--indigo);">24 applied</span> &middot; <span style="color: var(--orange);">8 shortlisted</span>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm">Manage</button>
+      </div>
+    <% }) %>
+  </div>
+</div>

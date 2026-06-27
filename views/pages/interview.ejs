@@ -1,0 +1,106 @@
+<div class="fade-in">
+  <div class="grid-2 mb-24" style="grid-template-columns: repeat(4, 1fr);" id="interview-types">
+    <% [
+      { label: "Technical", icon: "⚙️", color: "var(--blue)" },
+      { label: "HR", icon: "👔", color: "var(--green)" },
+      { label: "Coding", icon: "💻", color: "var(--indigo)" },
+      { label: "Behavioral", icon: "🧠", color: "var(--purple)" }
+    ].forEach((t, i) => { %>
+      <div class="card interview-type-card <%= i === 0 ? 'active' : '' %>" data-type="<%= t.label %>" style="text-align: center; cursor: pointer;">
+        <div style="font-size: 28px; margin-bottom: 8px;"><%= t.icon %></div>
+        <div class="type-label" style="font-size: 14px; font-weight: 700; color: <%= i === 0 ? 'var(--text-primary)' : 'var(--text-secondary)' %>;"><%= t.label %></div>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="grid-2-1">
+    <div class="card fade-in">
+      <div class="section-title" style="margin-bottom: 16px;"><span id="active-type-title">Technical</span> Questions</div>
+      <div style="display: flex; flex-direction: column; gap: 12px;" id="questions-list">
+        <!-- Questions injected via JS -->
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div class="card card-accent fade-in">
+        <div style="font-size: 28px; margin-bottom: 12px; text-align: center;">🎯</div>
+        <div class="section-title" style="text-align: center; margin-bottom: 8px;">AI Confidence Score</div>
+        <div style="display: flex; justify-content: center; margin-bottom: 16px;">
+          <div class="score-ring" style="width: 90px; height: 90px;">
+            <svg width="90" height="90" class="circ-progress">
+              <circle class="circ-track" cx="45" cy="45" r="40" stroke-width="6" />
+              <circle class="circ-bar" cx="45" cy="45" r="40" stroke-width="6" stroke="var(--blue)" stroke-dasharray="251.3" stroke-dashoffset="67.8" />
+            </svg>
+            <div class="score-center"><span class="score-value" style="font-size: 20px;">73</span><span class="score-label">Score</span></div>
+          </div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-secondary); text-align: center;">Based on your mock sessions · Improving steadily</div>
+      </div>
+
+      <div class="card fade-in">
+        <div class="section-title" style="margin-bottom: 12px;">Preparation Tips</div>
+        <% ["Think out loud during coding rounds", "Always ask clarifying questions", "Practice on a whiteboard / shared editor", "Know your projects inside out", "Prepare 5 STAR stories for behavioral"].forEach(t => { %>
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <span style="color: var(--green); flex-shrink: 0;">✓</span>
+            <span style="font-size: 12.5px; color: var(--text-secondary);"><%= t %></span>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const questions = {
+      Technical: ["Explain the difference between REST and GraphQL APIs.", "How does garbage collection work in Java?", "Design a rate limiter for an API.", "Explain SOLID principles with examples.", "What is the CAP theorem?"],
+      HR: ["Tell me about yourself.", "Where do you see yourself in 5 years?", "Why do you want to join this company?", "Describe a challenge you overcame.", "What is your greatest strength?"],
+      Coding: ["Two Sum (LeetCode #1)", "Merge Intervals", "LRU Cache Implementation", "Binary Tree Level Order Traversal", "Longest Palindromic Substring"],
+      Behavioral: ["Describe a time you led a team under pressure.", "Tell me about a conflict with a teammate.", "Describe your biggest professional failure.", "How do you prioritize when everything is urgent?", "Talk about a project you're most proud of."]
+    };
+
+    const typeCards = document.querySelectorAll('.interview-type-card');
+    const questionsList = document.getElementById('questions-list');
+    const titleSpan = document.getElementById('active-type-title');
+
+    const renderQuestions = (type) => {
+      questionsList.innerHTML = '';
+      titleSpan.innerText = type;
+      questions[type].forEach((q, i) => {
+        questionsList.innerHTML += `
+          <div style="display: flex; gap: 12px; padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s;" onmouseenter="this.style.borderColor='var(--border-accent)'" onmouseleave="this.style.borderColor='var(--border)'">
+            <span style="font-family: var(--mono); font-size: 12px; color: var(--indigo); font-weight: 700; flex-shrink: 0;">Q${i + 1}</span>
+            <span style="font-size: 13.5px; color: var(--text-primary);">${q}</span>
+            <button class="btn btn-ghost btn-sm" style="margin-left: auto; flex-shrink: 0;">Practice</button>
+          </div>
+        `;
+      });
+    };
+
+    typeCards.forEach(card => {
+      card.addEventListener('click', () => {
+        typeCards.forEach(c => {
+          c.classList.remove('active');
+          c.style.border = '';
+          c.style.background = '';
+          c.querySelector('.type-label').style.color = 'var(--text-secondary)';
+        });
+        card.classList.add('active');
+        card.style.border = '2px solid var(--indigo)';
+        card.style.background = 'var(--grad-card)';
+        card.querySelector('.type-label').style.color = 'var(--text-primary)';
+        
+        renderQuestions(card.dataset.type);
+      });
+    });
+
+    // Init
+    const initCard = document.querySelector('.interview-type-card.active');
+    if (initCard) {
+      initCard.style.border = '2px solid var(--indigo)';
+      initCard.style.background = 'var(--grad-card)';
+      initCard.querySelector('.type-label').style.color = 'var(--text-primary)';
+      renderQuestions(initCard.dataset.type);
+    }
+  });
+</script>

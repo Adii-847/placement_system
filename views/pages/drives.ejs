@@ -1,0 +1,47 @@
+<div class="fade-in">
+  <div class="section-header mb-24" style="display: flex; gap: 12px; margin-bottom: 24px;">
+    <div class="search-bar" style="flex: 1; max-width: 300px; background: rgba(255,255,255,0.02);">
+      <%- include('../partials/icon', { name: 'search', size: 14 }) %>
+      <input placeholder="Search drives..." style="width: 100%;" />
+    </div>
+    <button class="btn btn-ghost"><%- include('../partials/icon', { name: 'filter', size: 14 }) %> Filters</button>
+  </div>
+
+  <div class="grid-2">
+    <% COMPANIES.forEach(company => { %>
+      <div class="card fade-in" style="display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <div class="company-logo" style="width: 56px; height: 56px; font-size: 28px; margin-bottom: 0;"><%= company.emoji %></div>
+          <% if (company.match >= 90) { %>
+            <span class="tag tag-green" style="font-size: 11px; padding: 4px 10px;">⭐ <%= company.match %>% Match</span>
+          <% } else { %>
+            <span class="tag tag-blue" style="font-size: 11px; padding: 4px 10px;"><%= company.match %>% Match</span>
+          <% } %>
+        </div>
+        
+        <div style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;"><%= company.name %></div>
+        <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;"><%= company.role %> &middot; <%= company.location %></div>
+        
+        <div style="font-size: 22px; font-weight: 800; background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">
+          <%= company.package %>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Required Skills</div>
+          <div class="skills-wrap">
+            <% company.skills.forEach(s => { %>
+              <span class="skill-chip" style="font-size: 11px; padding: 3px 8px;"><%= s %></span>
+            <% }) %>
+          </div>
+        </div>
+
+        <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-size: 12px; color: var(--text-secondary);">
+            <%- include('../partials/icon', { name: 'clock', size: 12 }) %> Apply by <%= company.deadline %>
+          </div>
+          <button class="btn btn-primary btn-sm">Apply Now</button>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
